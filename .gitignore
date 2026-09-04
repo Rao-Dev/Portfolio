@@ -36,6 +36,9 @@ yarn-error.log*
 # vercel
 .vercel
 
+# local design reference — not for the public repo
+/examples
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts
