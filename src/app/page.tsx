@@ -21,54 +21,50 @@ export default function Home() {
 
   return (
     <>
-      <section className="relative overflow-hidden bg-maroon text-white">
+      {/* Hero and bio in one: name, full introduction and actions beside the portrait. */}
+      <section id="about" className="relative overflow-hidden">
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-0 opacity-[0.07] [background-image:linear-gradient(white_1px,transparent_1px),linear-gradient(90deg,white_1px,transparent_1px)] [background-size:48px_48px]"
+          className="pointer-events-none absolute inset-0 text-maroon opacity-[0.06] dark:text-stone [background-image:linear-gradient(currentColor_1px,transparent_1px),linear-gradient(90deg,currentColor_1px,transparent_1px)] [background-size:48px_48px]"
         />
-        <div className="relative mx-auto max-w-5xl px-4 py-16 sm:px-6 sm:py-24">
-          <p className="font-label text-[11px] font-semibold tracking-[0.25em] text-stone uppercase">
-            Texas A&amp;M University · Mechanical Engineering
-          </p>
-          <h1 className="font-display mt-4 text-6xl leading-none font-bold tracking-wide uppercase sm:text-8xl">
-            {profile.name}
-          </h1>
-          <p className="mt-6 max-w-xl text-lg text-white/85 text-pretty">{profile.intro}</p>
-          <div className="font-label mt-8 flex flex-wrap gap-3 text-xs font-semibold tracking-widest uppercase">
-            <Link href="#projects" className="bg-white px-5 py-3 text-maroon transition-colors hover:bg-stone">
-              View projects
-            </Link>
-            <SiteMapButton className="flex items-center gap-2 border border-white/40 px-5 py-3 uppercase transition-colors hover:bg-white/10">
-              Open the site map
-              <kbd className="border border-white/40 px-1 text-[9px]">M</kbd>
-            </SiteMapButton>
+        <div className="relative mx-auto grid max-w-5xl items-center gap-10 px-4 py-14 sm:px-6 sm:py-20 md:grid-cols-[3fr_2fr]">
+          <div className="order-2 md:order-1">
+            <p className="font-label text-[11px] font-semibold tracking-[0.25em] text-accent uppercase">
+              Texas A&amp;M University · Mechanical Engineering
+            </p>
+            <h1 className="font-display mt-4 text-6xl leading-none font-bold tracking-wide uppercase sm:text-7xl">
+              {profile.name}
+            </h1>
+            <div className="mt-6 space-y-4 text-muted text-pretty">
+              {profile.about.map((paragraph) => (
+                <p key={paragraph}>{paragraph}</p>
+              ))}
+            </div>
+            <div className="font-label mt-8 flex flex-wrap gap-3 text-xs font-semibold tracking-widest uppercase">
+              <Link href="#projects" className="bg-maroon px-5 py-3 text-white transition-colors hover:bg-maroon-light">
+                View projects
+              </Link>
+              <SiteMapButton className="flex items-center gap-2 border border-border px-5 py-3 uppercase transition-colors hover:border-maroon">
+                Open the site map
+                <kbd className="border border-border px-1 text-[9px]">M</kbd>
+              </SiteMapButton>
+            </div>
           </div>
+          <Image
+            src={portrait}
+            alt={`Portrait of ${profile.name}`}
+            sizes="(min-width: 768px) 380px, 60vw"
+            placeholder="blur"
+            preload
+            className="order-1 aspect-[4/5] w-3/5 max-w-sm border-b-4 border-maroon object-cover object-top sm:w-1/2 md:order-2 md:w-full md:justify-self-end"
+          />
         </div>
       </section>
 
-      <div className="mx-auto max-w-5xl px-4 sm:px-6">
-        <section id="about" className="py-16">
-          <div className="grid gap-10 md:grid-cols-[1fr_2fr]">
-            <Image
-              src={portrait}
-              alt={`Portrait of ${profile.name}`}
-              sizes="(min-width: 768px) 320px, 100vw"
-              placeholder="blur"
-              className="aspect-square w-full max-w-xs border-b-4 border-maroon object-cover object-top"
-            />
-            <div>
-              <h2 className="font-display text-3xl font-semibold tracking-wide text-accent uppercase">Howdy!</h2>
-              <div className="mt-5 space-y-4 text-muted text-pretty">
-                {profile.about.map((paragraph) => (
-                  <p key={paragraph}>{paragraph}</p>
-                ))}
-              </div>
-            </div>
-          </div>
-          <ExperienceLogos />
-        </section>
+      <ExperienceLogos />
 
-        <section id="projects" className="border-t border-border py-16">
+      <div className="mx-auto max-w-5xl px-4 sm:px-6">
+        <section id="projects" className="py-16">
           <SectionHeading eyebrow="Featured project">Selected work</SectionHeading>
           <Link
             href={`/projects/${featured.slug}`}
