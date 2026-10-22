@@ -22,6 +22,7 @@ import intrepidBooster from "@/assets/projects/intrepid/booster.jpg";
 import intrepidNosecone from "@/assets/projects/intrepid/nosecone.jpg";
 import craneTeam from "@/assets/projects/crane/gantry-team.jpg";
 import craneBuilt from "@/assets/projects/crane/gantry-built.jpg";
+import craneCad from "@/assets/projects/crane/gantry-cad.png";
 import craneFeaNoStiffener from "@/assets/projects/crane/fea-no-stiffener.jpg";
 import craneFeaStiffener from "@/assets/projects/crane/fea-stiffener.jpg";
 import craneBeamCalc from "@/assets/projects/crane/ibeam-hand-calc.jpg";
@@ -120,6 +121,7 @@ export const projects: Project[] = [
     ],
     gallery: [
       { image: craneBuilt, caption: "The manufactured gantry" },
+      { image: craneCad, caption: "Gantry CAD assembly", diagram: true },
       { image: craneFeaNoStiffener, caption: "FEA without the stiffener plate", diagram: true },
       { image: craneFeaStiffener, caption: "FEA with the stiffener plate", diagram: true },
       { image: craneBeamCalc, caption: "I-beam hand calculation", diagram: true },
@@ -132,16 +134,16 @@ export const projects: Project[] = [
     summary: "Bracketry and a motor adapter for an Aerosonde propulsion test stand, from CAD and FEA to installed hardware.",
     ...textron,
     tags: ["Design", "FEA", "Test Hardware", "Internship"],
-    cover: { image: aerosondeStand, caption: "Test stand CAD", diagram: true },
+    cover: { image: aerosondeBracket, caption: "Bracket installed on the test stand" },
     problem: [],
     process: [],
     solution: [],
     takeaways: [],
     gallery: [
+      { image: aerosondeStand, caption: "Test stand CAD", diagram: true },
       { image: aerosondeAdapter, caption: "Motor adapter CAD", diagram: true },
       { image: aerosondeFea, caption: "Bracket FEA", diagram: true },
       { image: aerosondeMotor, caption: "Motor mounted on the test stand" },
-      { image: aerosondeBracket, caption: "Bracket installed on the test stand" },
     ],
   },
   {
