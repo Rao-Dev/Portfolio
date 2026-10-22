@@ -57,7 +57,7 @@ export default function Home() {
               className="aspect-square w-full max-w-xs border-b-4 border-maroon object-cover object-top"
             />
             <div>
-              <h2 className="font-display text-3xl font-semibold tracking-wide text-accent uppercase">Howdy</h2>
+              <h2 className="font-display text-3xl font-semibold tracking-wide text-accent uppercase">Howdy!</h2>
               <div className="mt-5 space-y-4 text-muted text-pretty">
                 {profile.about.map((paragraph) => (
                   <p key={paragraph}>{paragraph}</p>
