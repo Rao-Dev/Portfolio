@@ -1,69 +1,148 @@
 import Image from "next/image";
+import Link from "next/link";
+import portrait from "@/assets/portrait.jpg";
+import { FigureImage, Tags } from "@/components/project-bits";
+import { StarMapButton } from "@/components/star-map";
+import { profile } from "@/content/profile";
+import { projects } from "@/content/projects";
+
+function SectionHeading({ eyebrow, children }: { eyebrow: string; children: React.ReactNode }) {
+  return (
+    <div>
+      <p className="font-label text-[11px] font-semibold tracking-[0.2em] text-accent uppercase">{eyebrow}</p>
+      <h2 className="font-display mt-1 text-3xl font-semibold tracking-wide uppercase">{children}</h2>
+    </div>
+  );
+}
 
 export default function Home() {
+  const [featured, ...rest] = projects;
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
+    <>
+      <section className="relative overflow-hidden bg-maroon text-white">
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 opacity-[0.07] [background-image:linear-gradient(white_1px,transparent_1px),linear-gradient(90deg,white_1px,transparent_1px)] [background-size:48px_48px]"
         />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+        <div className="relative mx-auto max-w-5xl px-4 py-16 sm:px-6 sm:py-24">
+          <p className="font-label text-[11px] font-semibold tracking-[0.25em] text-stone uppercase">
+            Texas A&amp;M University · Mechanical Engineering
           </p>
+          <h1 className="font-display mt-4 text-6xl leading-none font-bold tracking-wide uppercase sm:text-8xl">
+            {profile.name}
+          </h1>
+          <p className="mt-6 max-w-xl text-lg text-white/85 text-pretty">{profile.intro}</p>
+          <div className="font-label mt-8 flex flex-wrap gap-3 text-xs font-semibold tracking-widest uppercase">
+            <Link href="#projects" className="bg-white px-5 py-3 text-maroon transition-colors hover:bg-stone">
+              View projects
+            </Link>
+            <StarMapButton className="flex items-center gap-2 border border-white/40 px-5 py-3 uppercase transition-colors hover:bg-white/10">
+              Open the star map
+              <kbd className="border border-white/40 px-1 text-[9px]">M</kbd>
+            </StarMapButton>
+          </div>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
+      </section>
+
+      <div className="mx-auto max-w-5xl px-4 sm:px-6">
+        <section id="about" className="py-16">
+          <div className="grid gap-10 md:grid-cols-[1fr_2fr]">
             <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
+              src={portrait}
+              alt={`Portrait of ${profile.name}`}
+              sizes="(min-width: 768px) 320px, 100vw"
+              placeholder="blur"
+              className="aspect-square w-full max-w-xs border-b-4 border-maroon object-cover object-top"
             />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+            <div>
+              <SectionHeading eyebrow="Howdy">About</SectionHeading>
+              <div className="mt-5 space-y-4 text-muted text-pretty">
+                {profile.about.map((paragraph) => (
+                  <p key={paragraph}>{paragraph}</p>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="projects" className="border-t border-border py-16">
+          <SectionHeading eyebrow="Featured project">Selected work</SectionHeading>
+          <Link
+            href={`/projects/${featured.slug}`}
+            className="group mt-8 grid items-center gap-8 border border-border bg-surface p-4 transition-colors hover:border-maroon sm:p-6 md:grid-cols-[2fr_3fr]"
           >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+            <div className="order-2 md:order-1">
+              <p className="font-label text-[11px] font-semibold tracking-widest text-subtle uppercase">
+                {featured.organization.split(" — ")[0]} · {featured.period}
+              </p>
+              <h3 className="font-display mt-2 text-3xl leading-tight font-semibold tracking-wide uppercase text-balance">
+                {featured.title}
+              </h3>
+              <p className="mt-4 text-muted text-pretty">{featured.summary}</p>
+              <div className="mt-5">
+                <Tags tags={featured.tags} />
+              </div>
+              <p className="font-label mt-6 text-xs font-semibold tracking-widest text-accent uppercase">
+                Explore the project{" "}
+                <span className="inline-block transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
+                  ↗
+                </span>
+              </p>
+            </div>
+            <FigureImage
+              figure={featured.cover}
+              sizes="(min-width: 768px) 600px, 100vw"
+              preload
+              className="order-1 aspect-[16/10] md:order-2"
+            />
+          </Link>
+
+          <div className="mt-14 grid gap-x-6 gap-y-12 sm:grid-cols-2">
+            {rest.map((project) => (
+              <Link key={project.slug} href={`/projects/${project.slug}`} className="group block">
+                <FigureImage figure={project.cover} sizes="(min-width: 640px) 480px, 100vw" />
+                <div className="mt-4 flex items-start justify-between gap-4">
+                  <h3 className="font-display text-xl leading-tight font-semibold tracking-wide uppercase group-hover:text-accent">
+                    {project.title}
+                  </h3>
+                  <span className="text-subtle transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
+                    ↗
+                  </span>
+                </div>
+                <p className="font-label mt-1 text-[11px] font-semibold tracking-widest text-subtle uppercase">
+                  {project.organization.split(" — ")[0]} · {project.period}
+                </p>
+                <p className="mt-2 text-sm text-muted text-pretty">{project.summary}</p>
+                <div className="mt-4">
+                  <Tags tags={project.tags} />
+                </div>
+              </Link>
+            ))}
+          </div>
+        </section>
+
+        <section id="contact" className="border-t border-border py-16">
+          <SectionHeading eyebrow="Contact">Let’s stay in touch</SectionHeading>
+          <p className="mt-4 max-w-xl text-muted">
+            The quickest way to reach me is email — or connect with me on LinkedIn.
+          </p>
+          <div className="font-label mt-6 flex flex-wrap gap-3 text-xs font-semibold tracking-widest uppercase">
+            <a
+              href={`mailto:${profile.email}`}
+              className="bg-maroon px-5 py-3 text-white transition-colors hover:bg-maroon-light"
+            >
+              {profile.email}
+            </a>
+            <a
+              href={profile.linkedin}
+              className="border border-border px-5 py-3 transition-colors hover:border-maroon"
+            >
+              LinkedIn ↗
+            </a>
+          </div>
+        </section>
+      </div>
+    </>
   );
 }
