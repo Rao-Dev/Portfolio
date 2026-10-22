@@ -1,5 +1,24 @@
 import Image from "next/image";
+import { OrgLogo } from "@/components/experience-logos";
+import { getOrganization } from "@/content/organizations";
 import type { Figure } from "@/content/projects";
+
+// Organization logo in place of its name, followed by the project dates.
+export function ProjectOrg({ organization, period }: { organization: string; period: string }) {
+  const org = getOrganization(organization);
+  return (
+    <div className="font-label flex items-center gap-3 text-[11px] font-semibold tracking-widest text-subtle uppercase">
+      {org ? (
+        <span className="flex h-7 items-center opacity-80" title={org.name}>
+          <OrgLogo org={org} size="sm" />
+        </span>
+      ) : (
+        <span>{organization}</span>
+      )}
+      <span>{period}</span>
+    </div>
+  );
+}
 
 export function Tags({ tags }: { tags: string[] }) {
   return (

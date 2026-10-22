@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { OrgLogo } from "@/components/experience-logos";
 import { FigureImage, Tags } from "@/components/project-bits";
+import { getOrganization } from "@/content/organizations";
 import { getProject, projects } from "@/content/projects";
 
 export const dynamicParams = false;
@@ -52,8 +54,21 @@ export default async function ProjectPage({ params }: PageProps<"/projects/[slug
   const index = projects.indexOf(project);
   const next = projects[(index + 1) % projects.length];
 
-  const meta = [
-    { label: "Organization", value: project.organization },
+  const org = getOrganization(project.organization);
+  const meta: { label: string; value: React.ReactNode }[] = [
+    {
+      label: "Organization",
+      value: org ? (
+        <span className="flex items-center gap-2">
+          <span className="flex h-7 shrink-0 items-center">
+            <OrgLogo org={org} size="sm" />
+          </span>
+          {org.name}
+        </span>
+      ) : (
+        project.organization
+      ),
+    },
     { label: "Role", value: project.role },
     { label: "Location", value: project.location },
     { label: "Period", value: project.period },

@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import portrait from "@/assets/portrait.jpg";
 import { ExperienceLogos } from "@/components/experience-logos";
-import { FigureImage, Tags } from "@/components/project-bits";
+import { FigureImage, ProjectOrg, Tags } from "@/components/project-bits";
 import { SiteMapButton } from "@/components/site-map";
 import { profile } from "@/content/profile";
 import { projects } from "@/content/projects";
@@ -75,9 +75,7 @@ export default function Home() {
             className="group mt-8 grid items-center gap-8 border border-border bg-surface p-4 transition-colors hover:border-maroon sm:p-6 md:grid-cols-[2fr_3fr]"
           >
             <div className="order-2 md:order-1">
-              <p className="font-label text-[11px] font-semibold tracking-widest text-subtle uppercase">
-                {featured.organization} · {featured.period}
-              </p>
+              <ProjectOrg organization={featured.organization} period={featured.period} />
               <h3 className="font-display mt-2 text-3xl leading-tight font-semibold tracking-wide uppercase text-balance">
                 {featured.title}
               </h3>
@@ -112,9 +110,9 @@ export default function Home() {
                     ↗
                   </span>
                 </div>
-                <p className="font-label mt-1 text-[11px] font-semibold tracking-widest text-subtle uppercase">
-                  {project.organization} · {project.period}
-                </p>
+                <div className="mt-2">
+                  <ProjectOrg organization={project.organization} period={project.period} />
+                </div>
                 <p className="mt-2 text-sm text-muted text-pretty">{project.summary}</p>
                 <div className="mt-4">
                   <Tags tags={project.tags} />
