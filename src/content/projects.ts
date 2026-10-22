@@ -73,9 +73,9 @@ const textron = {
 };
 
 const bell = {
-  organization: "Bell Flight — Drive Systems Center",
+  organization: "Bell Flight",
   role: "Manufacturing Engineering Intern",
-  location: "Grand Prairie, TX",
+  location: "Drive Systems Center, Grand Prairie, TX",
   period: "Jun – Aug 2025",
 };
 
@@ -96,12 +96,12 @@ export const projects: Project[] = [
     tags: ["FEA", "Ansys", "Structural Analysis", "Rocketry"],
     cover: { image: craneTeam, caption: "Raising the gantry" },
     problem: [
-      "The Collegiate Propulsive Lander Challenge requires teams to demonstrate a controlled, tethered 10-second hover with payload — so the vehicle has to fly on a tether, and that tether system has to actually work.",
+      "The Collegiate Propulsive Lander Challenge requires teams to demonstrate a controlled, tethered 10-second hover with payload. That means the vehicle has to fly on a tether, and that tether system has to actually work.",
       "That gave Texas A&M’s Sounding Rocketry Team two parallel needs: a way to safely move a 400 lb Lander Vehicle to and from the test site, and a system that could catch the vehicle mid-flight if something failed, protecting hardware that represents months of work.",
     ],
     process: [
       "I started by researching COTS solutions before committing to a SRAD design. The lead candidate was a Harbor Freight gantry rated to 2,000 lbs static. In parallel, we ran structural calculations and designed stiffness transitions to bring it in line with our critical requirement of a factor of safety of 3, ultimately reaching 2.9.",
-      "My main analysis contribution was the tether interface. I measured the I-beam geometry and modeled it by hand as simply supported with a 2,000 lb point load at center, which returned an FOS of 2.5. Validating that in Ansys Static Structural — with fixed boundary conditions and the U-bolt holes included — returned an FOS of 0.97: the I-beam would yield.",
+      "My main analysis contribution was the tether interface. I measured the I-beam geometry and modeled it by hand as simply supported with a 2,000 lb point load at center, which returned an FOS of 2.5. Validating that in Ansys Static Structural, with fixed boundary conditions and the U-bolt holes included, returned an FOS of 0.97: the I-beam would yield.",
       "Adding a 1/4\" steel stiffener plate beneath the I-beam to locally stiffen the region brought the FOS to 2.75. In the end we dropped the U-bolts for a lifting clamp to avoid drilling the I-beam at all. I then ran hand calculations on the rest of the tether hardware, mainly the rigging, to check each component’s load capacity ahead of testing.",
     ],
     solution: [
@@ -120,8 +120,8 @@ export const projects: Project[] = [
     ],
     gallery: [
       { image: craneBuilt, caption: "The manufactured gantry" },
-      { image: craneFeaNoStiffener, caption: "FEA — no stiffener plate", diagram: true },
-      { image: craneFeaStiffener, caption: "FEA — with stiffener plate", diagram: true },
+      { image: craneFeaNoStiffener, caption: "FEA without the stiffener plate", diagram: true },
+      { image: craneFeaStiffener, caption: "FEA with the stiffener plate", diagram: true },
       { image: craneBeamCalc, caption: "I-beam hand calculation", diagram: true },
       { image: craneRiggingCalc, caption: "Rigging equipment hand calculations", diagram: true },
     ],
@@ -157,11 +157,11 @@ export const projects: Project[] = [
       "I shadowed the operator to quantify the problem and gather feedback, and broke the vague goal of “reduce gaps under the rivet head” into two concrete issues:",
     ],
     problemList: [
-      "Rivet gun alignment — operators had to hand-align a 5 lb rivet gun normal to the rivet head, for more than 100 rivets per order.",
-      "Free movement of the shaft — forces from the rivet gun transferred into the shaft, making it kick up and twist out of alignment with the gun.",
+      "Rivet gun alignment: operators had to hand-align a 5 lb rivet gun normal to the rivet head, for more than 100 rivets per order.",
+      "Free movement of the shaft: forces from the rivet gun transferred into the shaft, making it kick up and twist out of alignment with the gun.",
     ],
     process: [
-      "With those two problems in mind, I iterated through four generations of prototypes over ten weeks — asking for as much feedback and criticism as I could get, adding features as they proved necessary, and simplifying the ones that didn’t.",
+      "With those two problems in mind, I iterated through four generations of prototypes over ten weeks, asking for as much feedback and criticism as I could get, adding features as they proved necessary, and simplifying the ones that didn’t.",
     ],
     processList: [
       "Modeled every component and the full assembly in Fusion 360",
@@ -172,10 +172,10 @@ export const projects: Project[] = [
       "A system that stops the rotor shaft from moving and aligns the rivet gun normal to the rivet. It’s made of four parts:",
     ],
     solutionList: [
-      "Arch — aligns the rivet gun with the rivet",
-      "Tower Assembly — houses the Adapter and supports the shaft",
-      "Adapter — mounts on the tail rotor shaft and interfaces with the Tower",
-      "Gun Bushing — fits the rivet gun and interfaces with the Arch to correct alignment",
+      "Arch: aligns the rivet gun with the rivet",
+      "Tower Assembly: houses the Adapter and supports the shaft",
+      "Adapter: mounts on the tail rotor shaft and interfaces with the Tower",
+      "Gun Bushing: fits the rivet gun and interfaces with the Arch to correct alignment",
     ],
     takeaways: [
       {
@@ -215,7 +215,7 @@ export const projects: Project[] = [
     tags: ["Composites", "Stress Analysis", "SolidWorks", "Rocketry"],
     cover: { image: hornetCad, caption: "Labeled CAD assembly", diagram: true },
     problem: [
-      "Hornet was a developmental rocket for Texas A&M’s SpaceShot program, built to test a subminimum-diameter design. In a minimum-diameter rocket the motor casing simply slides into the body tube — but when the casing is the same diameter as the tube, that isn’t an option. A coupler had to be designed to join the two.",
+      "Hornet was a developmental rocket for Texas A&M’s SpaceShot program, built to test a subminimum-diameter design. In a minimum-diameter rocket the motor casing simply slides into the body tube. But when the casing is the same diameter as the tube, that isn’t an option. A coupler had to be designed to join the two.",
     ],
     process: [
       "Assuming a worst-case 200 lbf snatch force when the parachute opens, I ran bending and shear calculations in Excel for carbon fiber, fiberglass, PETG and aluminum. Those numbers drove the design choice, since each material dictates a different manufacturing process. I chose the composite design for its simplicity and its margin over the expected flight loads.",
@@ -225,10 +225,10 @@ export const projects: Project[] = [
       "A composite coupler system epoxied into the airframe, made up of:",
     ],
     solutionList: [
-      "Bulkhead — houses the locknut and caps the system",
-      "Coupler — the bonding surface",
-      "Centering ring — keeps the motor casing and coupler concentric",
-      "Locknut and eyebolt — the recovery attachment point",
+      "Bulkhead: houses the locknut and caps the system",
+      "Coupler: the bonding surface",
+      "Centering ring: keeps the motor casing and coupler concentric",
+      "Locknut and eyebolt: the recovery attachment point",
     ],
     takeaways: [
       {
@@ -241,7 +241,7 @@ export const projects: Project[] = [
       },
     ],
     gallery: [
-      { image: hornetAssembly, caption: "Full integrated assembly — CAD vs. manufactured", diagram: true },
+      { image: hornetAssembly, caption: "Full integrated assembly, CAD vs. manufactured", diagram: true },
       { image: hornetBending, caption: "Bending stress calculations for the composite coupler", diagram: true },
       { image: hornetComparison, caption: "Bending and shear stress comparison across materials", diagram: true },
     ],
@@ -256,7 +256,7 @@ export const projects: Project[] = [
     tags: ["Carbon Fiber", "Manufacturing", "Rocketry"],
     cover: { image: intrepidHeatShrink, caption: "Securing a pre-preg tube with heat shrink tape" },
     problem: [
-      "Intrepid was a developmental two-stage rocket for the SpaceShot program, built to test an interstage coupler design. I was responsible for fabricating the structural components — airframe, nosecone and fins — and for final assembly.",
+      "Intrepid was a developmental two-stage rocket for the SpaceShot program, built to test an interstage coupler design. I was responsible for fabricating the structural components (airframe, nosecone and fins) and for final assembly.",
     ],
     process: [
       "For the booster and sustainer airframes, we rolled pre-impregnated carbon fiber around an aluminum mandrel, secured it with heat shrink tape, and cured the tubes in our composites oven. I made the nosecone with a carbon fiber wet layup over a positive mold using carbon fiber sleeving.",
@@ -324,7 +324,7 @@ export const projects: Project[] = [
       "Knowledge about production grinding was mostly passed from operator to operator with little documentation, which let poor practices creep in and hurt production quality.",
     ],
     process: [
-      "I shadowed and worked with production grind operators during part setups, documenting every aspect of each procedure — wheel type, dress type, flag, zero, and headstock and tailstock positions — and turned it into presentation-based guides.",
+      "I shadowed and worked with production grind operators during part setups, documenting every aspect of each procedure (wheel type, dress type, flag, zero, and headstock and tailstock positions) and turned it into presentation-based guides.",
     ],
     solution: [
       "More than fifteen guides documenting production grind setups and best practices, now used both as a reference and as a training aid for new operators.",

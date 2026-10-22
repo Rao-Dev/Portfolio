@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Open_Sans, Oswald, Work_Sans } from "next/font/google";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
-import { StarMap } from "@/components/star-map";
+import { SiteMap } from "@/components/site-map";
 import { profile } from "@/content/profile";
 import "./globals.css";
 
@@ -24,7 +24,7 @@ const openSans = Open_Sans({
 
 export const metadata: Metadata = {
   title: {
-    default: "Rubin Rao — Portfolio",
+    default: "Rubin Rao | Portfolio",
     template: "%s · Rubin Rao",
   },
   description: profile.intro,
@@ -40,7 +40,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <SiteHeader />
         <main className="flex-1">{children}</main>
         <SiteFooter />
-        <StarMap />
+        <SiteMap />
       </body>
     </html>
   );

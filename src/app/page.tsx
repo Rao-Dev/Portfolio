@@ -1,8 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
 import portrait from "@/assets/portrait.jpg";
+import { ExperienceLogos } from "@/components/experience-logos";
 import { FigureImage, Tags } from "@/components/project-bits";
-import { StarMapButton } from "@/components/star-map";
+import { SiteMapButton } from "@/components/site-map";
 import { profile } from "@/content/profile";
 import { projects } from "@/content/projects";
 
@@ -37,10 +38,10 @@ export default function Home() {
             <Link href="#projects" className="bg-white px-5 py-3 text-maroon transition-colors hover:bg-stone">
               View projects
             </Link>
-            <StarMapButton className="flex items-center gap-2 border border-white/40 px-5 py-3 uppercase transition-colors hover:bg-white/10">
-              Open the star map
+            <SiteMapButton className="flex items-center gap-2 border border-white/40 px-5 py-3 uppercase transition-colors hover:bg-white/10">
+              Open the site map
               <kbd className="border border-white/40 px-1 text-[9px]">M</kbd>
-            </StarMapButton>
+            </SiteMapButton>
           </div>
         </div>
       </section>
@@ -64,6 +65,7 @@ export default function Home() {
               </div>
             </div>
           </div>
+          <ExperienceLogos />
         </section>
 
         <section id="projects" className="border-t border-border py-16">
@@ -74,7 +76,7 @@ export default function Home() {
           >
             <div className="order-2 md:order-1">
               <p className="font-label text-[11px] font-semibold tracking-widest text-subtle uppercase">
-                {featured.organization.split(" — ")[0]} · {featured.period}
+                {featured.organization} · {featured.period}
               </p>
               <h3 className="font-display mt-2 text-3xl leading-tight font-semibold tracking-wide uppercase text-balance">
                 {featured.title}
@@ -111,7 +113,7 @@ export default function Home() {
                   </span>
                 </div>
                 <p className="font-label mt-1 text-[11px] font-semibold tracking-widest text-subtle uppercase">
-                  {project.organization.split(" — ")[0]} · {project.period}
+                  {project.organization} · {project.period}
                 </p>
                 <p className="mt-2 text-sm text-muted text-pretty">{project.summary}</p>
                 <div className="mt-4">
@@ -125,7 +127,7 @@ export default function Home() {
         <section id="contact" className="border-t border-border py-16">
           <SectionHeading eyebrow="Contact">Let’s stay in touch</SectionHeading>
           <p className="mt-4 max-w-xl text-muted">
-            The quickest way to reach me is email — or connect with me on LinkedIn.
+            The quickest way to reach me is email, or connect with me on LinkedIn.
           </p>
           <div className="font-label mt-6 flex flex-wrap gap-3 text-xs font-semibold tracking-widest uppercase">
             <a

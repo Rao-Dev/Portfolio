@@ -1,7 +1,7 @@
 import { profile } from "@/content/profile";
 import { projects } from "@/content/projects";
 
-// The star map's view of the site: one hub (home), constellations of
+// The site map's view of the site: one hub (home), constellations of
 // project pages grouped by organization, and single stars for everything else.
 
 export type Vec3 = [number, number, number];
@@ -47,21 +47,21 @@ function constellation(label: string, description: string): Body {
 const bodies: Body[] = [
   constellation(
     "Bell Flight",
-    "Manufacturing Engineering Intern at the Drive Systems Center, summer 2025 — tooling, process improvement and shop-floor documentation.",
+    "Manufacturing Engineering Intern at the Drive Systems Center, summer 2025: tooling, process improvement and shop-floor documentation.",
   ),
   constellation(
     "Texas A&M Sounding Rocketry Team",
-    "Structures Engineer, 2024–2026 — composite couplers, carbon fiber airframes, rocket integration and lander ground support.",
+    "Structures Engineer, 2024–2026: composite couplers, carbon fiber airframes, rocket integration and lander ground support.",
   ),
   constellation(
     "Textron Systems",
-    "Design Engineering Intern in Hunt Valley, MD, summer 2026 — test-stand bracketry for the Aerosonde.",
+    "Design Engineering Intern in Hunt Valley, MD, summer 2026: test-stand bracketry for the Aerosonde.",
   ),
   {
     kind: "single",
     id: "fsae",
-    label: "Formula SAE",
-    description: "Chassis Engineering Apprentice on the Texas A&M Formula SAE IC team. Project write-up coming soon.",
+    label: "TAMU FSAE - Internal Combustion",
+    description: "Chassis Engineering Apprentice on the TAMU FSAE - Internal Combustion team. Project write-up coming soon.",
     meta: "Coming soon",
   },
   {

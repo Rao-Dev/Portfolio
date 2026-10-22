@@ -5,7 +5,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { siteMap, type MapNode, type Vec3 } from "@/content/site-map";
 
-export const OPEN_STAR_MAP = "open-star-map";
+export const OPEN_SITE_MAP = "open-site-map";
 
 type Camera = { yaw: number; pitch: number; dist: number; target: Vec3 };
 
@@ -40,6 +40,11 @@ const NEBULAE = Array.from({ length: 7 }, () => ({
   size: 260 + rand() * 260,
 }));
 
+function rgba(hex: string, alpha: number) {
+  const n = parseInt(hex.replace("#", ""), 16);
+  return `rgba(${(n >> 16) & 255}, ${(n >> 8) & 255}, ${n & 255}, ${alpha})`;
+}
+
 type Projected = { x: number; y: number; z: number; scale: number };
 
 function makeProjector(cam: Camera, w: number, h: number) {
@@ -73,19 +78,19 @@ function makeProjector(cam: Camera, w: number, h: number) {
   };
 }
 
-export function StarMapButton({ className, children }: { className?: string; children: React.ReactNode }) {
+export function SiteMapButton({ className, children }: { className?: string; children: React.ReactNode }) {
   return (
     <button
       type="button"
       className={className}
-      onClick={() => window.dispatchEvent(new Event(OPEN_STAR_MAP))}
+      onClick={() => window.dispatchEvent(new Event(OPEN_SITE_MAP))}
     >
       {children}
     </button>
   );
 }
 
-export function StarMap() {
+export function SiteMap() {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
@@ -98,19 +103,19 @@ export function StarMap() {
         setOpen((o) => !o);
       }
     };
-    window.addEventListener(OPEN_STAR_MAP, show);
+    window.addEventListener(OPEN_SITE_MAP, show);
     window.addEventListener("keydown", onKey);
     return () => {
-      window.removeEventListener(OPEN_STAR_MAP, show);
+      window.removeEventListener(OPEN_SITE_MAP, show);
       window.removeEventListener("keydown", onKey);
     };
   }, []);
 
   if (!open) return null;
-  return createPortal(<StarMapOverlay onClose={() => setOpen(false)} />, document.body);
+  return createPortal(<SiteMapOverlay onClose={() => setOpen(false)} />, document.body);
 }
 
-function StarMapOverlay({ onClose }: { onClose: () => void }) {
+function SiteMapOverlay({ onClose }: { onClose: () => void }) {
   const router = useRouter();
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const searchRef = useRef<HTMLInputElement>(null);
@@ -180,6 +185,12 @@ function StarMapOverlay({ onClose }: { onClose: () => void }) {
     const display = styles.getPropertyValue("--font-oswald").trim() || "sans-serif";
     const label = styles.getPropertyValue("--font-work-sans").trim() || "sans-serif";
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    // Pull the site's brand tokens so the map always matches the theme.
+    const token = (name: string) => styles.getPropertyValue(name).trim();
+    const maroon = token("--maroon");
+    const maroonLight = token("--maroon-light");
+    const stone = token("--stone");
+    const accent = token("--accent-on-dark");
     let frame = 0;
     let raf = 0;
     let w = 0;
@@ -216,8 +227,8 @@ function StarMapOverlay({ onClose }: { onClose: () => void }) {
         if (!p) continue;
         const r = Math.min(n.size * p.scale, 900);
         const grad = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, r);
-        grad.addColorStop(0, "rgba(128, 0, 0, 0.22)");
-        grad.addColorStop(1, "rgba(80, 0, 0, 0)");
+        grad.addColorStop(0, rgba(maroonLight, 0.3));
+        grad.addColorStop(1, rgba(maroon, 0));
         ctx.fillStyle = grad;
         ctx.fillRect(p.x - r, p.y - r, r * 2, r * 2);
       }
@@ -226,12 +237,12 @@ function StarMapOverlay({ onClose }: { onClose: () => void }) {
         const p = project(s.pos);
         if (!p || p.x < 0 || p.y < 0 || p.x > w || p.y > h) continue;
         const twinkle = reduceMotion ? 0.7 : 0.55 + 0.45 * Math.sin(frame * 0.02 + s.phase);
-        ctx.fillStyle = `rgba(255, 255, 255, ${0.25 + 0.5 * twinkle})`;
+        ctx.fillStyle = rgba(stone, 0.25 + 0.5 * twinkle);
         ctx.fillRect(p.x, p.y, s.size, s.size);
       }
 
       // Orbit rings around each constellation.
-      ctx.strokeStyle = "rgba(214, 211, 196, 0.16)";
+      ctx.strokeStyle = rgba(stone, 0.16);
       ctx.lineWidth = 1;
       for (const ring of siteMap.rings) {
         ctx.beginPath();
@@ -266,8 +277,8 @@ function StarMapOverlay({ onClose }: { onClose: () => void }) {
         if (!pa || !pb) continue;
         const fromHub = a === "home";
         const grad = ctx.createLinearGradient(pa.x, pa.y, pb.x, pb.y);
-        grad.addColorStop(0, fromHub ? "rgba(200, 40, 40, 0.75)" : "rgba(200, 40, 40, 0.45)");
-        grad.addColorStop(1, "rgba(200, 40, 40, 0.2)");
+        grad.addColorStop(0, rgba(stone, fromHub ? 0.55 : 0.35));
+        grad.addColorStop(1, rgba(stone, 0.12));
         ctx.strokeStyle = grad;
         ctx.beginPath();
         ctx.moveTo(pa.x, pa.y);
@@ -289,13 +300,13 @@ function StarMapOverlay({ onClose }: { onClose: () => void }) {
 
         if (node.kind === "page") {
           const size = 3.2 * zoom;
-          ctx.fillStyle = isSelected || isHovered ? "#ffffff" : "rgba(255, 255, 255, 0.85)";
+          ctx.fillStyle = isSelected || isHovered ? "#ffffff" : rgba(stone, 0.9);
           ctx.beginPath();
           ctx.arc(p.x, p.y, size, 0, Math.PI * 2);
           ctx.fill();
           if (isSelected || isHovered || p.scale > 1.7) {
             ctx.font = `500 ${11}px ${label}`;
-            ctx.fillStyle = isSelected || isHovered ? "#ffffff" : "rgba(214, 211, 196, 0.75)";
+            ctx.fillStyle = isSelected || isHovered ? "#ffffff" : rgba(stone, 0.75);
             ctx.fillText(node.label, p.x + size + 6, p.y + 4);
           }
           continue;
@@ -309,11 +320,18 @@ function StarMapOverlay({ onClose }: { onClose: () => void }) {
           ctx.fillStyle = "#ffffff";
           ctx.fillRect(p.x - size / 2.5, p.y - size / 2.5, (size * 2) / 2.5, (size * 2) / 2.5);
         } else {
-          ctx.shadowColor = "rgba(220, 30, 30, 0.9)";
-          ctx.shadowBlur = 14;
-          ctx.fillStyle = node.href || node.kind === "cluster" ? "#c41e1e" : "#7a2a2a";
-          ctx.fillRect(p.x - size, p.y - size, size * 2, size * 2);
+          // Maroon squares edged in stone; stars with nothing to open yet are outlines only.
+          const active = node.href || node.kind === "cluster";
+          ctx.shadowColor = rgba(maroonLight, 0.9);
+          ctx.shadowBlur = active ? 16 : 0;
+          if (active) {
+            ctx.fillStyle = maroonLight;
+            ctx.fillRect(p.x - size, p.y - size, size * 2, size * 2);
+          }
           ctx.shadowBlur = 0;
+          ctx.strokeStyle = active ? stone : rgba(stone, 0.5);
+          ctx.lineWidth = 1;
+          ctx.strokeRect(p.x - size, p.y - size, size * 2, size * 2);
         }
         if (isSelected || isHovered) {
           ctx.strokeStyle = "#ffffff";
@@ -329,7 +347,7 @@ function StarMapOverlay({ onClose }: { onClose: () => void }) {
           ctx.fillStyle = "#ffffff";
           ctx.fillText(name, p.x, p.y + size + 24);
           ctx.font = `600 9px ${label}`;
-          ctx.fillStyle = "#e05050";
+          ctx.fillStyle = accent;
           ctx.fillText("• YOU ARE HERE", p.x, p.y + size + 38);
           ctx.textAlign = "left";
           continue;
@@ -341,19 +359,19 @@ function StarMapOverlay({ onClose }: { onClose: () => void }) {
         const nw = ctx.measureText(text).width;
         ctx.font = `600 9px ${label}`;
         const numW = ctx.measureText(node.number ?? "").width + 6;
-        ctx.strokeStyle = "rgba(214, 211, 196, 0.4)";
+        ctx.strokeStyle = rgba(stone, 0.4);
         ctx.beginPath();
         ctx.moveTo(p.x + size, p.y - size);
         ctx.lineTo(lx, ly + 6);
         ctx.lineTo(lx + numW + nw + 10, ly + 6);
         ctx.stroke();
-        ctx.fillStyle = "#e05050";
+        ctx.fillStyle = accent;
         ctx.fillText(node.number ?? "", lx, ly);
         ctx.font = `600 ${15}px ${display}`;
         ctx.fillStyle = "#ffffff";
         ctx.fillText(text, lx + numW, ly);
         ctx.font = `600 8px ${label}`;
-        ctx.fillStyle = "rgba(214, 211, 196, 0.65)";
+        ctx.fillStyle = rgba(stone, 0.65);
         ctx.fillText((node.meta ?? "").toUpperCase(), lx + numW, ly + 18);
       }
 
@@ -484,8 +502,8 @@ function StarMapOverlay({ onClose }: { onClose: () => void }) {
     <div
       role="dialog"
       aria-modal="true"
-      aria-label="Star map"
-      className="fixed inset-0 z-50 bg-[#0b0606] text-white"
+      aria-label="Site map"
+      className="fixed inset-0 z-50 bg-night text-white"
     >
       <canvas ref={canvasRef} className="absolute inset-0 size-full cursor-grab touch-none" />
 
@@ -495,7 +513,7 @@ function StarMapOverlay({ onClose }: { onClose: () => void }) {
             <p className="font-label text-[10px] font-semibold tracking-[0.2em] text-white/60 uppercase">
               Navigation · {siteMap.nodes.filter((n) => n.href).length} pages
             </p>
-            <h2 className="font-display text-xl font-semibold tracking-wide uppercase">Star map</h2>
+            <h2 className="font-display text-xl font-semibold tracking-wide uppercase">Site map</h2>
           </div>
           <div className="flex gap-2">
             <button
@@ -542,7 +560,7 @@ function StarMapOverlay({ onClose }: { onClose: () => void }) {
                       selectedId === node.id ? "text-white" : "text-white/80"
                     }`}
                   >
-                    <span className="text-[#e05050]">{node.number}</span>
+                    <span className="text-accent-on-dark">{node.number}</span>
                     {node.label}
                   </button>
                   {pages.length > 0 && (
@@ -573,10 +591,10 @@ function StarMapOverlay({ onClose }: { onClose: () => void }) {
             aria-live="polite"
             className="pointer-events-auto absolute right-4 bottom-4 left-4 border border-white/10 bg-black/70 p-5 backdrop-blur md:top-4 md:bottom-auto md:left-auto md:w-80"
           >
-            <p className="font-label text-[10px] font-semibold tracking-[0.2em] text-[#e05050] uppercase">
+            <p className="font-label text-[10px] font-semibold tracking-[0.2em] text-accent-on-dark uppercase">
               {selected.kind === "hub"
                 ? "Home · you are here"
-                : selected.group ?? (selected.kind === "cluster" ? "Constellation" : selected.meta)}
+                : selected.group ?? (selected.kind === "cluster" ? "Group" : selected.meta)}
             </p>
             <h3 className="font-display mt-2 text-2xl leading-tight font-semibold tracking-wide uppercase">
               {selected.label}
@@ -592,7 +610,7 @@ function StarMapOverlay({ onClose }: { onClose: () => void }) {
               </button>
             ) : selected.kind === "cluster" ? (
               <p className="font-label mt-5 text-[11px] tracking-widest text-white/50 uppercase">
-                Select a star in this constellation
+                Select a page in this group
               </p>
             ) : null}
           </aside>
@@ -601,7 +619,7 @@ function StarMapOverlay({ onClose }: { onClose: () => void }) {
         <div className="flex items-end justify-between px-5 pb-4">
           <div className="font-label hidden text-[10px] tracking-[0.18em] text-white/50 uppercase md:block">
             <p>
-              <span className="text-[#e05050]">Camera</span>{" "}
+              <span className="text-accent-on-dark">Camera</span>{" "}
               <span className="font-mono tracking-normal">{readout}</span>
             </p>
             <p className="mt-2">

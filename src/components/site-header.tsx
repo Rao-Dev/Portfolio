@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import portrait from "@/assets/portrait.jpg";
-import { StarMapButton } from "@/components/star-map";
+import { SiteMapButton } from "@/components/site-map";
 import { profile } from "@/content/profile";
 
 const links = [
@@ -25,7 +25,7 @@ export function SiteHeader() {
           <span className="font-display text-lg font-semibold tracking-wide uppercase">{profile.name}</span>
         </Link>
         <nav className="font-label flex items-center gap-4 text-xs font-semibold tracking-widest uppercase sm:gap-6">
-          <StarMapButton className="flex items-center gap-1.5 uppercase text-accent transition-opacity hover:opacity-75">
+          <SiteMapButton className="flex items-center gap-1.5 uppercase text-accent transition-opacity hover:opacity-75">
             <svg viewBox="0 0 16 16" className="size-3.5" fill="none" stroke="currentColor" aria-hidden>
               <path d="M8 2 13.5 12h-11Z" strokeLinejoin="round" />
               <circle cx="8" cy="2" r="1.4" fill="currentColor" />
@@ -33,7 +33,7 @@ export function SiteHeader() {
               <circle cx="2.5" cy="12" r="1.4" fill="currentColor" />
             </svg>
             Map
-          </StarMapButton>
+          </SiteMapButton>
           {links.map((link) => (
             <Link
               key={link.href}
