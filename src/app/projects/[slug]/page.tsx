@@ -59,11 +59,9 @@ export default async function ProjectPage({ params }: PageProps<"/projects/[slug
     {
       label: "Organization",
       value: org ? (
-        <span className="flex items-center gap-2">
-          <span className="flex h-7 shrink-0 items-center">
-            <OrgLogo org={org} size="sm" />
-          </span>
-          {org.name}
+        // Logo only; its alt text and tooltip carry the name.
+        <span className="flex h-7 items-center" title={org.name}>
+          <OrgLogo org={org} size="sm" />
         </span>
       ) : (
         project.organization
