@@ -72,6 +72,16 @@ export default function Home() {
             >
               LinkedIn ↗
             </a>
+            <a
+              href={profile.resume}
+              download
+              className="flex items-center gap-2 border border-border px-5 py-3 whitespace-nowrap transition-colors hover:border-maroon"
+            >
+              Download resume
+              <svg viewBox="0 0 16 16" width="14" height="14" className="size-3.5 shrink-0" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden>
+                <path d="M8 2v9M4 7.5 8 11.5l4-4M2.5 14h11" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </a>
           </div>
         </section>
       </div>

@@ -9,4 +9,6 @@ export const profile = {
   ],
   email: "rubinrrao@tamu.edu",
   linkedin: "https://www.linkedin.com/in/rubinrrao",
+  // Public copy with the phone number redacted; served from public/.
+  resume: "/Rubin-Rao-Resume.pdf",
 };
