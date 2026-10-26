@@ -96,7 +96,7 @@ export const projects: Project[] = [
     summary:
       "Transport and catch system for a 400 lb propulsive lander. Modified a COTS gantry and used hand calculations and Ansys FEA to find and fix a failing tether interface.",
     ...rocketry,
-    period: "Aug 2025 – May 2026",
+    period: "Aug 2025 – Mar 2026",
     tags: ["FEA", "Ansys", "Structural Analysis", "Rocketry"],
     cover: { image: craneTeam, caption: "Raising the gantry" },
     problem: [
