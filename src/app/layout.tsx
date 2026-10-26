@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Open_Sans, Oswald, Work_Sans } from "next/font/google";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
-import { SiteMap } from "@/components/site-map";
 import { profile } from "@/content/profile";
 import "./globals.css";
 
@@ -40,7 +39,6 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <SiteHeader />
         <main className="flex-1">{children}</main>
         <SiteFooter />
-        <SiteMap />
       </body>
     </html>
   );

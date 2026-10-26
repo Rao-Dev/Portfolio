@@ -3,6 +3,15 @@ import { OrgLogo } from "@/components/experience-logos";
 import { getOrganization } from "@/content/organizations";
 import type { Figure } from "@/content/projects";
 
+export function SectionHeading({ eyebrow, children }: { eyebrow: string; children: React.ReactNode }) {
+  return (
+    <div>
+      <p className="font-label text-[11px] font-semibold tracking-[0.2em] text-accent uppercase">{eyebrow}</p>
+      <h2 className="font-display mt-1 text-3xl font-semibold tracking-wide uppercase">{children}</h2>
+    </div>
+  );
+}
+
 // Organization logo in place of its name, followed by the project dates.
 export function ProjectOrg({ organization, period }: { organization: string; period: string }) {
   const org = getOrganization(organization);

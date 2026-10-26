@@ -13,20 +13,17 @@
   --maroon: #500000;
   --maroon-light: #732f2f;
   --stone: #d6d3c4;
-  /* Always-dark surfaces (the site map) use the dark-mode values in both themes. */
-  --night: #0e0b0b;
-  --accent-on-dark: #d98a8a;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: var(--night);
+    --background: #0e0b0b;
     --surface: #181313;
     --foreground: #f4f2ec;
     --muted: #c9c5b8;
     --subtle: #8f8a80;
     --border: #2e2626;
-    --accent: var(--accent-on-dark);
+    --accent: #d98a8a;
   }
 }
 
@@ -41,8 +38,6 @@
   --color-maroon: var(--maroon);
   --color-maroon-light: var(--maroon-light);
   --color-stone: var(--stone);
-  --color-night: var(--night);
-  --color-accent-on-dark: var(--accent-on-dark);
   --font-sans: var(--font-open-sans);
   --font-display: var(--font-oswald);
   --font-label: var(--font-work-sans);

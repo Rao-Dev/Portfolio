@@ -1,24 +1,11 @@
 import Image from "next/image";
 import Link from "next/link";
 import portrait from "@/assets/portrait.jpg";
-import { ExperienceLogos } from "@/components/experience-logos";
-import { FigureImage, ProjectOrg, Tags } from "@/components/project-bits";
-import { SiteMapButton } from "@/components/site-map";
+import { SectionHeading } from "@/components/project-bits";
+import { ProjectExplorer } from "@/components/project-explorer";
 import { profile } from "@/content/profile";
-import { projects } from "@/content/projects";
-
-function SectionHeading({ eyebrow, children }: { eyebrow: string; children: React.ReactNode }) {
-  return (
-    <div>
-      <p className="font-label text-[11px] font-semibold tracking-[0.2em] text-accent uppercase">{eyebrow}</p>
-      <h2 className="font-display mt-1 text-3xl font-semibold tracking-wide uppercase">{children}</h2>
-    </div>
-  );
-}
 
 export default function Home() {
-  const [featured, ...rest] = projects;
-
   return (
     <>
       {/* Hero and bio in one: name, full introduction and actions beside the portrait. */}
@@ -44,10 +31,9 @@ export default function Home() {
               <Link href="#projects" className="bg-maroon px-5 py-3 text-white transition-colors hover:bg-maroon-light">
                 View projects
               </Link>
-              <SiteMapButton className="flex items-center gap-2 border border-border px-5 py-3 uppercase transition-colors hover:border-maroon">
-                Open the site map
-                <kbd className="border border-border px-1 text-[9px]">M</kbd>
-              </SiteMapButton>
+              <Link href="#contact" className="border border-border px-5 py-3 transition-colors hover:border-maroon">
+                Get in touch
+              </Link>
             </div>
           </div>
           <Image
@@ -65,63 +51,9 @@ export default function Home() {
         </div>
       </section>
 
-      <ExperienceLogos />
+      <ProjectExplorer />
 
       <div className="mx-auto max-w-5xl px-4 sm:px-6">
-        <section id="projects" className="py-16">
-          <SectionHeading eyebrow="Featured project">Selected work</SectionHeading>
-          <Link
-            href={`/projects/${featured.slug}`}
-            className="group mt-8 grid items-center gap-8 border border-border bg-surface p-4 transition-colors hover:border-maroon sm:p-6 md:grid-cols-[2fr_3fr]"
-          >
-            <div className="order-2 md:order-1">
-              <ProjectOrg organization={featured.organization} period={featured.period} />
-              <h3 className="font-display mt-2 text-3xl leading-tight font-semibold tracking-wide uppercase text-balance">
-                {featured.title}
-              </h3>
-              <p className="mt-4 text-muted text-pretty">{featured.summary}</p>
-              <div className="mt-5">
-                <Tags tags={featured.tags} />
-              </div>
-              <p className="font-label mt-6 text-xs font-semibold tracking-widest text-accent uppercase">
-                Explore the project{" "}
-                <span className="inline-block transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
-                  ↗
-                </span>
-              </p>
-            </div>
-            <FigureImage
-              figure={featured.cover}
-              sizes="(min-width: 768px) 600px, 100vw"
-              preload
-              className="order-1 aspect-[16/10] md:order-2"
-            />
-          </Link>
-
-          <div className="mt-14 grid gap-x-6 gap-y-12 sm:grid-cols-2">
-            {rest.map((project) => (
-              <Link key={project.slug} href={`/projects/${project.slug}`} className="group block">
-                <FigureImage figure={project.cover} sizes="(min-width: 640px) 480px, 100vw" />
-                <div className="mt-4 flex items-start justify-between gap-4">
-                  <h3 className="font-display text-xl leading-tight font-semibold tracking-wide uppercase group-hover:text-accent">
-                    {project.title}
-                  </h3>
-                  <span className="text-subtle transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
-                    ↗
-                  </span>
-                </div>
-                <div className="mt-2">
-                  <ProjectOrg organization={project.organization} period={project.period} />
-                </div>
-                <p className="mt-2 text-sm text-muted text-pretty">{project.summary}</p>
-                <div className="mt-4">
-                  <Tags tags={project.tags} />
-                </div>
-              </Link>
-            ))}
-          </div>
-        </section>
-
         <section id="contact" className="border-t border-border py-16">
           <SectionHeading eyebrow="Contact">Let’s stay in touch</SectionHeading>
           <p className="mt-4 max-w-xl text-muted">
