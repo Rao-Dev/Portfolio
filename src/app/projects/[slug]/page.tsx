@@ -104,6 +104,7 @@ export default async function ProjectPage({ params }: PageProps<"/projects/[slug
           sizes="(min-width: 1024px) 976px, 100vw"
           preload
           className="aspect-[16/9]"
+          naturalAspect={project.cover.full}
         />
         <figcaption className="mt-2 text-xs text-subtle">{project.cover.caption}</figcaption>
       </figure>
@@ -116,7 +117,7 @@ export default async function ProjectPage({ params }: PageProps<"/projects/[slug
         {project.takeaways.length > 0 && (
           <section className="grid gap-3 border-t border-border py-10 md:grid-cols-[1fr_3fr] md:gap-10">
             <h2 className="font-display text-xl font-semibold tracking-wide uppercase">Takeaways</h2>
-            <div className="grid gap-4 sm:grid-cols-2">
+            <div className={`grid gap-4 ${project.takeaways.length > 1 ? "sm:grid-cols-2" : ""}`}>
               {project.takeaways.map((takeaway) => (
                 <div key={takeaway.title} className="border-t-2 border-maroon bg-surface p-5">
                   <h3 className="font-display text-lg font-semibold tracking-wide uppercase">{takeaway.title}</h3>

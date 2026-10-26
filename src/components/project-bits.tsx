@@ -50,17 +50,21 @@ export function FigureImage({
   sizes,
   preload,
   className = "aspect-[4/3]",
+  naturalAspect = false,
 }: {
   figure: Figure;
   sizes: string;
   preload?: boolean;
   className?: string;
+  // Size the frame to the image's own proportions so nothing is cropped.
+  naturalAspect?: boolean;
 }) {
   return (
     <div
       className={`relative overflow-hidden border border-border ${
         figure.diagram ? "bg-white" : "bg-surface"
-      } ${className}`}
+      } ${naturalAspect ? "" : className}`}
+      style={naturalAspect ? { aspectRatio: `${figure.image.width} / ${figure.image.height}` } : undefined}
     >
       <Image
         src={figure.image}

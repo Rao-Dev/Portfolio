@@ -38,6 +38,9 @@ export type Figure = {
   caption: string;
   // Diagrams and renders on white backgrounds: show whole, never cropped.
   diagram?: boolean;
+  // As a project page cover, keep the photo's own proportions instead of
+  // cropping it to the standard wide frame.
+  full?: boolean;
 };
 
 export type Takeaway = {
@@ -131,18 +134,35 @@ export const projects: Project[] = [
   {
     slug: "aerosonde-testing-bracketry",
     title: "Aerosonde Testing Bracketry",
-    summary: "Bracketry and a motor adapter for an Aerosonde propulsion test stand, from CAD and FEA to installed hardware.",
+    summary:
+      "A single-orientation motor mount and an adjustable Hall effect sensor arm for a motor characterization test stand, checked with Ansys modal and structural analysis.",
     ...textron,
-    tags: ["Design", "FEA", "Test Hardware", "Internship"],
-    cover: { image: aerosondeBracket, caption: "Bracket installed on the test stand" },
-    problem: [],
-    process: [],
-    solution: [],
-    takeaways: [],
+    tags: ["Design", "Ansys", "Sheet Metal", "Test Hardware", "Internship"],
+    cover: { image: aerosondeBracket, caption: "Full integrated assembly on the test stand", full: true },
+    problem: [
+      "Textron Systems had new motor and propeller configurations that needed testing, but there was no way to mount the motors, or the Hall effect sensor the tests depend on, to the test stand.",
+    ],
+    process: [
+      "I started with the motor mount, letting the physical hardware drive the requirements: the mounting pattern on the test stand, the mounting patterns on the motors themselves, and the wiring coming off each motor. We also wanted a single mount for every motor type, so I worked through orientations for each one and built in deliberate asymmetries so the mount could not be installed incorrectly.",
+      "The Hall effect sensor mount was the trickier half. The sensor had to sit within 2 mm of the propeller while barely disturbing it, and stay clear of vibration. I first designed an arm that keeps out of the propeller’s way, then a mount that interfaces the sensor with the arm. The mount adjusts so the sensor can be calibrated to each propeller’s depth.",
+      "With the design set, I ran modal and structural analysis on the arm in Ansys. The modal analysis confirmed the arm’s natural frequency sits outside the motor’s operating range, and the structural analysis confirmed the arm would not deform if it caught airflow the wrong way and acted like an airfoil. I then produced drawings for the motor mount, arm and sensor mount and sent them out for manufacturing.",
+    ],
+    solution: ["A three-part mounting system for the motor characterization test stand:"],
+    solutionList: [
+      "Motor mount: machined from 6061 aluminum, with one mount for every motor type and asymmetries that prevent incorrect installation",
+      "Sensor arm: aluminum sheet metal, routed clear of the propeller, with a natural frequency outside the motor’s operating range",
+      "Sensor mount: aluminum sheet metal, adjustable to hold the Hall effect sensor within 2 mm of propellers at different depths",
+    ],
+    takeaways: [
+      {
+        title: "Simplification follows iteration",
+        body: "I often try to land on the best, simplest solution on the first try, and end up stuck analyzing and obsessing over a single design instead of building something that works. Putting a design on paper and iterating on it gets me to a simple solution faster than waiting for the perfect one.",
+      },
+    ],
     gallery: [
       { image: aerosondeStand, caption: "Test stand CAD", diagram: true },
       { image: aerosondeAdapter, caption: "Motor adapter CAD", diagram: true },
-      { image: aerosondeFea, caption: "Bracket FEA", diagram: true },
+      { image: aerosondeFea, caption: "Modal analysis of the sensor arm", diagram: true },
       { image: aerosondeMotor, caption: "Motor mounted on the test stand" },
     ],
   },
