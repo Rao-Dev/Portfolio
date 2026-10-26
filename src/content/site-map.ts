@@ -55,7 +55,7 @@ const bodies: Body[] = [
   ),
   constellation(
     "Textron Systems",
-    "Design Engineering Intern in Hunt Valley, MD, summer 2026: test-stand bracketry for the Aerosonde.",
+    "Mechanical Design Engineering Intern in Hunt Valley, MD, summer 2026: test-stand bracketry for the Aerosonde.",
   ),
   {
     kind: "single",

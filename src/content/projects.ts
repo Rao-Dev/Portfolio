@@ -68,7 +68,7 @@ export type Project = {
 
 const textron = {
   organization: "Textron Systems",
-  role: "Design Engineering Intern",
+  role: "Mechanical Design Engineering Intern",
   location: "Hunt Valley, MD",
   period: "Jun – Aug 2026",
 };

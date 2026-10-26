@@ -13,10 +13,17 @@ export type Organization = {
   height: { sm: string; md: string };
 };
 
+// Listed in reverse chronological order by start date, most recent first.
 export const organizations: Organization[] = [
   {
+    name: "TAMU FSAE - Internal Combustion",
+    role: "Chassis Engineering Apprentice",
+    logo: tamuSae,
+    height: { sm: "h-6", md: "h-9" },
+  },
+  {
     name: "Textron Systems",
-    role: "Design Engineering Intern",
+    role: "Mechanical Design Engineering Intern",
     logo: textron,
     height: { sm: "h-3", md: "h-5" },
   },
@@ -25,12 +32,6 @@ export const organizations: Organization[] = [
     role: "Manufacturing Engineering Intern",
     logo: bell,
     height: { sm: "h-7", md: "h-10" },
-  },
-  {
-    name: "TAMU FSAE - Internal Combustion",
-    role: "Chassis Engineering Apprentice",
-    logo: tamuSae,
-    height: { sm: "h-6", md: "h-9" },
   },
   {
     name: "Texas A&M Sounding Rocketry Team",

@@ -53,7 +53,11 @@ export default function Home() {
           <Image
             src={portrait}
             alt={`Portrait of ${profile.name}`}
-            sizes="(min-width: 768px) 380px, 60vw"
+            // The landscape photo is cropped to a 4:5 frame, so it renders about 1.76x wider
+            // than the frame itself; sizes describes that full width so the browser fetches
+            // a sharp enough file.
+            sizes="(min-width: 768px) 670px, 106vw"
+            quality={90}
             placeholder="blur"
             preload
             className="order-1 aspect-[4/5] w-3/5 max-w-sm border-b-4 border-maroon object-cover object-top sm:w-1/2 md:order-2 md:w-full md:justify-self-end"
